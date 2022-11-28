@@ -7,13 +7,12 @@ import postRoutes from "./routes/posts.js";
 
 const app = express();
 
-app.use("/posts", postRoutes);
-
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
-const PORT = process.env.PORT || 500;
+app.use("/posts", postRoutes);
+const PORT = process.env.PORT || 5000;
 
 mongoose
   .connect(MONGODB_URI, {
