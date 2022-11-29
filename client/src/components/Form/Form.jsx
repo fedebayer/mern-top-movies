@@ -1,6 +1,8 @@
 import { Button, Paper, TextField, Typography } from "@material-ui/core";
 import { useState } from "react";
 import FileBase from "react-file-base64";
+import { useDispatch } from "react-redux";
+import { createPost } from "../../actions/posts";
 import useStyles from "./styles";
 function Form() {
   const [postData, setPostData] = useState({
@@ -12,8 +14,12 @@ function Form() {
   });
 
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createPost(postData));
+  };
   const clear = () => {};
   return (
     <Paper className={classes.paper}>
@@ -31,7 +37,7 @@ function Form() {
           fullWidth
           value={postData.creator}
           onChange={(e) => {
-            this.setPostData({ ...postData, creator: e.target.value });
+            setPostData({ ...postData, creator: e.target.value });
           }}
         />
         <TextField
@@ -41,7 +47,7 @@ function Form() {
           fullWidth
           value={postData.title}
           onChange={(e) => {
-            this.setPostData({ ...postData, title: e.target.value });
+            setPostData({ ...postData, title: e.target.value });
           }}
         />
         <TextField
@@ -51,7 +57,7 @@ function Form() {
           fullWidth
           value={postData.message}
           onChange={(e) => {
-            this.setPostData({ ...postData, message: e.target.value });
+            setPostData({ ...postData, message: e.target.value });
           }}
         />
         <TextField
@@ -61,7 +67,7 @@ function Form() {
           fullWidth
           value={postData.tags}
           onChange={(e) => {
-            this.setPostData({ ...postData, tags: e.target.value });
+            setPostData({ ...postData, tags: e.target.value });
           }}
         />
         <div className={classes.fileInput}>
